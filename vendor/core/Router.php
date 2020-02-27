@@ -1,5 +1,7 @@
 <?php
 
+namespace vendor\core;
+
 class Router
 {
     protected static $routes = [];
@@ -53,7 +55,7 @@ class Router
     public static function dispatch($url)
     {
         if (self::marchRoute($url)) {
-            $controller = self::upperCamelCase((self::$route['controller']));
+            $controller = APP.self::upperCamelCase((self::$route['controller']));
             if (class_exists($controller)) {
                 $controllerOBJ = new $controller(self::$route);
                 $action = self::$route['action'] . 'Action';
