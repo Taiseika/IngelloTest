@@ -1,7 +1,7 @@
 <?php
 class Site
 {
-    public function index ()
+    public function indexAction ()
     {
         echo 'hello';
     }
