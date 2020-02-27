@@ -14,10 +14,34 @@ class Router
     {
         return self::$routes;
     }
+
     public static function getRoute()
     {
         return self::$route;
     }
 
+    /*
+     * Перенапрвляет URL по коректному маршруту
+     * @param string $url входящий URL
+     * @return void
+     */
+    public static function marchRoute($url)
+    {
+
+        foreach (self::$routes as $pattern => $route) {
+
+            foreach (self::$routes as $pattern => $route) {
+                if ($url == $pattern) {
+                    self::$route = $route;
+                    return true;
+
+                }
+
+
+            }
+        }
+        return false;
+
+    }
 
 }
