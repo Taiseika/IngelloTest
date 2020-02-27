@@ -2,10 +2,15 @@
 
 namespace app\controllers\main;
 
-class Site
+use app\models\Store;
+use vendor\core\Controller;
+
+class Site extends Controller
 {
     public function indexAction ()
     {
-        echo 'hello';
+        echo 'This is Site index page<br>';
+        debug($this->route);
+        Store::create();
     }
 }

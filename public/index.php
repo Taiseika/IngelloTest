@@ -9,7 +9,7 @@ error_reporting(-1);
 define('CONTROL', 'app\controllers\main');
 define('CORE', dirname(__DIR__), 'vendor/core');
 define('ROOT', dirname(__DIR__));
-define('APP', '\app\controllers\main\\');
+define('MAIN', '\app\controllers\main\\');
 
 require '../vendor/libs/function.php';
 
@@ -25,7 +25,5 @@ spl_autoload_register(function ($class){
 //Default routs
 Router::add('^$', ['controller' => 'site', 'action' => 'index']);
 Router::add('(?P<controller>[a-z-)+)/(?P<action>(a-z)+)');
-
-debug(Router::getRoutes());
 
 Router::dispatch($query);
