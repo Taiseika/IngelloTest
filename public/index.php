@@ -11,8 +11,8 @@ define('ROOT', dirname(__DIR__));
 require '../vendor/core/Router.php';
 require '../vendor/libs/function.php';
 
-Router::add('post/add', ['controller' => 'Posts', 'action' => 'add']);
-Router::add('', ['controller' => 'Site', 'action' => 'index']);
+Router::add('^$', ['controller' => 'Site', 'action' => 'index']);
+Router::add('(?P<controller>[a-z-)+)/(?P<action>(a-z)+)');
 
 
 if(Router::marchRoute($query)) {
@@ -21,4 +21,3 @@ if(Router::marchRoute($query)) {
     echo '404';
 }
 
-debug(Router::getRoutes());

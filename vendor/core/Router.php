@@ -31,17 +31,25 @@ class Router
         foreach (self::$routes as $pattern => $route) {
 
             foreach (self::$routes as $pattern => $route) {
-                if ($url == $pattern) {
+                if (preg_match("~$pattern~", $url, $matches)) {
+                    debug($matches);
                     self::$route = $route;
                     return true;
 
                 }
-
-
             }
         }
         return false;
 
     }
 
+    public static function dispatch ($url)
+    {
+        if (self::marchRoute($url)) {
+
+        } else {
+            http_response_code(404);
+            include '404.html';
+        }
+    }
 }
