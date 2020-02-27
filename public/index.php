@@ -10,6 +10,7 @@ define('CONTROL', 'app\controllers\main');
 define('CORE', dirname(__DIR__), 'vendor/core');
 define('ROOT', dirname(__DIR__));
 define('MAIN', '\app\controllers\main\\');
+define('STORE', '\app\controllers\store\\');
 
 require '../vendor/libs/function.php';
 
@@ -20,7 +21,7 @@ spl_autoload_register(function ($class){
     }
 });
 
-
+Router::add('^store/product/(?P<action>[a-z-]+)$', ['controller' => 'Product', 'action'=>'create']);
 
 //Default routs
 Router::add('^$', ['controller' => 'site', 'action' => 'index']);

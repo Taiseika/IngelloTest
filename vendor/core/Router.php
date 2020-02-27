@@ -27,21 +27,20 @@ class Router
     {
 
         foreach (self::$routes as $pattern => $route) {
-            foreach (self::$routes as $pattern => $route) {
-                if (preg_match("~$pattern~", $url, $matches)) {
-                    foreach ($matches as $k => $v) {
-                        if (is_string($route)) {
-                            $route[$k] = $v;
-                        }
-                    }
-                    if (!isset($route['action'])) {
-                        $route['action'] = 'index';
-                    }
-                    $route['controller'] = self::upperCamelCase($route['controller']);
-                    self::$route = $route;
-                    return true;
 
+            if (preg_match("~$pattern~", $url, $matches)) {
+                foreach ($matches as $k => $v) {
+                    if (is_string($route)) {
+                        $route[$k] = $v;
+                    }
                 }
+                if (!isset($route['action'])) {
+                    $route['action'] = 'index';
+                }
+                $route['controller'] = self::upperCamelCase($route['controller']);
+                self::$route = $route;
+                return true;
+
             }
         }
         return false;
@@ -57,9 +56,16 @@ class Router
     {
         $url = self::removeQueryString($url);
         if (self::marchRoute($url)) {
-            $controller = MAIN.(self::$route['controller']);
+            $controller2 = STORE . self::$route['controller'];
+            $controller = MAIN . self::$route['controller'];
             if (class_exists($controller)) {
                 $controllerOBJ = new $controller(self::$route);
+                $action = self::$route['action'] . 'Action';
+                if (method_exists($controllerOBJ, $action)) {
+                    $controllerOBJ->$action();
+                }
+            } elseif (class_exists($controller2)) {
+                $controllerOBJ = new $controller2(self::$route);
                 $action = self::$route['action'] . 'Action';
                 if (method_exists($controllerOBJ, $action)) {
                     $controllerOBJ->$action();
@@ -92,4 +98,5 @@ class Router
         debug($url);
         return $url;
     }
+
 }

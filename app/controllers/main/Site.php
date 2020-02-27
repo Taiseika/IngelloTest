@@ -10,7 +10,6 @@ class Site extends Controller
     public function indexAction ()
     {
         echo 'This is Site index page<br>';
-        debug($this->route);
         Store::create();
     }
 }
